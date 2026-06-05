@@ -1,11 +1,28 @@
+import { Routes } from "react-router-dom"
+import Navbar from "./components/layout/Navbar"
+import Login from "./pages/auth/Login"
+import Signup from "./pages/auth/Signup"
+import { Route } from "react-router-dom"
+import Dashboard from "./pages/Dashboard"
+import Templates from "./pages/templates/Templates"
+import EditorPage from "./pages/edit/EditorPage"
+import Home from "./pages/Home"
 
 
 function App() {
   return (
-    <>
-      <h1>Welcome to the React App!</h1>
-      <p>This is a simple React application.</p>
-    </>
+    <div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/templates" element={<Templates />} />
+        <Route path="/editor" element={<EditorPage />} />
+        <Route path="*" element={<h2 className="text-center mt-10 text-2xl">404 - Page Not Found</h2>} />
+      </Routes>
+    </div>
   )
 }
 

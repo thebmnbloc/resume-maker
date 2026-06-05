@@ -1,0 +1,169 @@
+// CORE MODELS
+
+model ResumeTemplate {
+  id          String   @id @default(cuid())
+  layoutStyle String // e.g., "modern-minimal", "creative-sidebar"
+  themeColor  String // e.g., "bg-blue-600", "bg-emerald-600"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  profile        Profile?
+  contact        Contact?
+  educations     Education[]
+  experiences    Experience[]
+  expertises     Expertise[]
+  languages      Language[]
+  certifications Certification[]
+  references     Reference[]
+
+  @@map("resume_templates")
+}
+
+// PROFILE & CONTACT
+
+model Profile {
+  id           String @id @default(cuid())
+  name         String
+  designation  String
+  summary      String @db.Text
+  profileImage String // URL to image
+
+  // Foreign key
+  resumeId String         @unique
+  resume   ResumeTemplate @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Contact {
+  id       String  @id @default(cuid())
+  email    String
+  phone    String
+  location String
+  website  String?
+  linkedin String?
+  github   String?
+
+  // Foreign key
+  resumeId String         @unique
+  resume   ResumeTemplate @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("contacts")
+}
+
+// EDUCATION & EXPERIENCE
+
+model Education {
+  id          String  @id @default(cuid())
+  degree      String
+  institution String
+  location    String
+  period      String // e.g., "2016 - 2020"
+  details     String? @db.Text
+
+  // Foreign key
+  resumeId String
+  resume   ResumeTemplate @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("educations")
+}
+
+model Experience {
+  id          String  @id @default(cuid())
+  role        String
+  company     String
+  location    String
+  period      String // e.g., "2023 - Present"
+  current     Boolean @default(false)
+  description String  @db.Text
+
+  // Relations
+  achievements Achievement[]
+
+  // Foreign key
+  resumeId String
+  resume   ResumeTemplate @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("experiences")
+}
+
+model Achievement {
+  id          String @id @default(cuid())
+  description String @db.Text
+
+  // Foreign key
+  experienceId String
+  experience   Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  @@map("achievements")
+}
+
+// EXPERTISE (SKILLS)
+
+model Expertise {
+  id       String @id @default(cuid())
+  category String // e.g., "Languages", "Frameworks & Libraries"
+
+  // Relations
+  items ExpertiseItem[]
+
+  // Foreign key
+  resumeId String
+  resume   ResumeTemplate @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("expertises")
+}
+
+model ExpertiseItem {
+  id   String @id @default(cuid())
+  name String // e.g., "JavaScript (ES6+)", "React.js"
+
+  // Foreign key
+  expertiseId String
+  expertise   Expertise @relation(fields: [expertiseId], references: [id], onDelete: Cascade)
+
+  @@map("expertise_items")
+}
+
+// LANGUAGES & CERTIFICATIONS
+
+model Language {
+  id   String @id @default(cuid())
+  name String // e.g., "English (Native)", "Spanish (Conversational)"
+
+  // Foreign key
+  resumeId String
+  resume   ResumeTemplate @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("languages")
+}
+
+model Certification {
+  id     String @id @default(cuid())
+  name   String
+  issuer String
+  year   String // Kept as String to match your data; use Int if you prefer
+
+  // Foreign key
+  resumeId String
+  resume   ResumeTemplate @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("certifications")
+}
+
+// REFERENCES
+
+model Reference {
+  id           String @id @default(cuid())
+  name         String
+  relationship String
+  email        String
+  phone        String
+
+  // Foreign key
+  resumeId String
+  resume   ResumeTemplate @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@map("references")
+}
