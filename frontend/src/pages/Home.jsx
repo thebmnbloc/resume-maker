@@ -1,4 +1,5 @@
 
+
 const Home = () => {
   return (
     <div className="min-h-screen bg-white">
@@ -18,18 +19,24 @@ const Home = () => {
           
           <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <a 
-              href="/create-resume"
+              href="/signup"
               className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-lg shadow-blue-500/25 w-full sm:w-auto text-center"
             >
               Sign Up
             </a>
             <a 
-              href="#templates"
+              href="templates"
               className="border-2 border-blue-500 text-blue-500 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold transition-colors duration-200 w-full sm:w-auto text-center"
             >
               Browse Templates
             </a>
           </div>
+        </div>
+
+
+        {/* RESUME TEMPLATES SHOWCASE */}
+        <div>
+          
         </div>
       </div>
 

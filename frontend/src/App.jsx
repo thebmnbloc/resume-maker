@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard"
 import Templates from "./pages/templates/Templates"
 import EditorPage from "./pages/edit/EditorPage"
 import Home from "./pages/Home"
+import TemplateForm from "./components/layout/FormSections/TemplateForm"
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/templates" element={<Templates />} />
-        <Route path="/editor" element={<EditorPage />} />
+        <Route path="/editor" element={<TemplateForm />} />
         <Route path="*" element={<h2 className="text-center mt-10 text-2xl">404 - Page Not Found</h2>} />
       </Routes>
     </div>

@@ -1,48 +1,36 @@
-import express from "express";
-import cors from "cors";
 
+import express from 'express'
+import cors from 'cors';
 
-const app = express();
+// routes imports
+import authRoutes from './routes/authRoute'
+import templatesRoutes from './routes/templatesRoute'
+import adminRoutes from './routes/adminRoute'
 
+const app = express()
 
 // middlewares
-app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(cors());
 
-app.get("/", (req, res) => {
-  res.json({message: "Hello, world!"});
+// routes
+app.use('/api/auth', authRoutes);
+app.use('/api/templates', templatesRoutes);
+app.use('/api/admin', adminRoutes);
+
+
+app.get('/api/welcome', (req, res) => {
+  res.json({"message": "Welcome to Express"});
 });
 
-app.get("/login", (req, res) => {
-  res.json({status: "user logged in"});
-});
 
-{/* 
+// Global error handler
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err)
+  res.status(500).json({
+    success: false,
+    message: err.message || 'Internal server error',
+  })
+})
 
-// GET /api/users/me/templates — fetch all resumes for the authenticated user
-app.get('/api/users/me/templates', authenticate, async (req, res) => {
-  const templates = await prisma.user.findUnique({
-    where: { id: req.user.id },
-    include: {
-      resumeTemplates: {
-        include: {
-          profile: true,
-          contact: true,
-          educations: true,
-          experiences: { include: { achievements: true } },
-          expertises: { include: { items: true } },
-          languages: true,
-          certifications: true,
-          references: true,
-        }
-      }
-    }
-  });
-  
-  res.json(templates?.resumeTemplates ?? []);
-});
-
-*/}
-
-export default app;
+export default app

@@ -6,14 +6,14 @@
           <div className="max-w-7xl mx-auto px-6 lg:px-16 py-4 flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-gray-900">
+              <a href="/" className="text-2xl font-bold text-gray-900">
                 Resume<span className="text-blue-500">Maker</span>
-              </span>
+              </a>
             </div>
 
             {/* Nav Links */}
             <div className="hidden md:flex items-center gap-8">
-              <a href="#templates" className="text-gray-600 hover:text-blue-500 font-medium transition-colors">
+              <a href="templates" className="text-gray-600 hover:text-blue-500 font-medium transition-colors">
                 Templates
               </a>
               <a href="#faq" className="text-gray-600 hover:text-blue-500 font-medium transition-colors">
@@ -33,7 +33,7 @@
                 Login
               </a>
               <a 
-                href="/create-resume" 
+                href="/editor" 
                 className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors shadow-lg shadow-blue-500/25"
               >
                 Create Resume
